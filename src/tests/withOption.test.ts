@@ -1,12 +1,16 @@
-import { describe, it, expect, vi } from 'vitest';
-import { Option } from '..';
+import { describe, it, expect } from 'vitest';
 import { withOption } from '../withOption';
 
+const random = () => Math.round(Math.random() * 100);
+
 describe('withOption', () => {
-  it('should return a function that excepts null', () => {
+  it('should be commutative if input is not null', () => {
+    const input = random();
     const addOne = (value: number) => value + 1;
-    const result = withOption(addOne)(4);
-    expect(result).toEqual(5);
+    const result1 = withOption(addOne)(input);
+    const result2 = addOne(input);
+
+    expect(result1).toEqual(result2);
   });
 
   it('should handle undefined', () => {
