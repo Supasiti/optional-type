@@ -1,9 +1,9 @@
-export type Option<T> = T | undefined | null;
+export type Option<T extends {}> = T | undefined | null;
 
-type OptionFunc<T, U> = (arg: Option<T>) => Option<U>;
+type OptionFunc<T extends {}, U extends {}> = (arg: Option<T>) => Option<U>;
 
 export const withOption =
-  <T, U>(fn: (arg: T) => U): OptionFunc<T, U> =>
+  <T extends {}, U extends {}>(fn: (arg: T) => Option<U>): OptionFunc<T, U> =>
   (arg: Option<T>) => {
     if (arg == null) return undefined;
     return fn(arg);
