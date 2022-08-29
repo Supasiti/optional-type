@@ -13,6 +13,6 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "vitest.commandLine": "npx vitest",
+  "vitest.commandLine": "./node_modules/.bin/vitest",
   "vitest.enable": true
 }
