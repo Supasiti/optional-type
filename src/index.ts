@@ -1,8 +1,6 @@
 export interface Option<T> {
   getOrElse: (defaultValue: T) => T;
-  flatMap: <TFunc extends (arg: T) => unknown>(
-    arg: TFunc,
-  ) => Option<NonNullable<ReturnType<TFunc>>>;
+  flatMap: <U>(cb: (arg: T) => WithNull<U>) => Option<U>;
 }
 
 export type WithNull<T> = T | undefined | null;
@@ -15,15 +13,15 @@ export const Option = <T>(value: WithNull<T>): Option<T> => {
     return optValue;
   };
 
-  const flatMap = <TFunc extends (arg: T) => unknown>(fn: TFunc) => {
-    type TReturnOption = NonNullable<ReturnType<TFunc>>;
+  const flatMap = <TReturn>(cb: (arg: T) => WithNull<TReturn>) => {
+    // type TReturnOption = NonNullable<TReturn>;
 
     if (optValue == null) {
-      return Option<TReturnOption>(undefined);
+      return Option<TReturn>(undefined);
     }
 
-    const newValue = fn(optValue) as WithNull<TReturnOption>;
-    return Option<TReturnOption>(newValue);
+    const newValue = cb(optValue);
+    return Option<TReturn>(newValue);
   };
 
   return {

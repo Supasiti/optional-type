@@ -4,7 +4,7 @@ import { Option } from '..';
 describe('index', () => {
   describe('getOrElse', () => {
     it('should return value', () => {
-      const input: number = 4;
+      const input = 4;
       const result = Option(input).getOrElse(0);
 
       expect(result).toEqual(4);
