@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { withOption } from '../withOption';
 
 const random = () => Math.round(Math.random() * 100);

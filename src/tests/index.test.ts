@@ -1,4 +1,3 @@
-import { describe, it, expect, vi } from 'vitest';
 import { Option } from '..';
 
 describe('index', () => {
@@ -50,7 +49,7 @@ describe('index', () => {
     });
 
     it('should handle action', () => {
-      const spy = vi.spyOn(global.console, 'error');
+      const spy = jest.spyOn(global.console, 'error');
       Option(4).flatMap((value: number) => {});
 
       expect(spy).not.toBeCalled();

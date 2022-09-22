@@ -13,6 +13,5 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "vitest.commandLine": "./node_modules/.bin/vitest",
-  "vitest.enable": true
+  "jest.autoRun": "off"
 }
