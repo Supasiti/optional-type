@@ -5,34 +5,25 @@ import { OptionFunctor, Option } from './types';
 
 const map =
   <T, U>(cb: (arg: T) => U) =>
-  (val: Option<T>): Option<U> => {
-    const curVal = val.get();
-    if (!curVal) return None;
-
-    return Some(cb(curVal));
-  };
+  (val: Option<T>): Option<U> =>
+    val.map(cb);
 
 // convert (T => E<U>) => E<T> => E<U>
 
 const bind =
   <T, U>(cb: (arg: T) => Option<U>) =>
-  (val: Option<T>): Option<U> => {
-    const curVal = val.get();
-    if (!curVal) return None;
-
-    return cb(curVal);
-  };
+  (val: Option<T>): Option<U> =>
+    val.bind(cb);
 
 // convert E<T => U> => E<T> => E<U>
 
 const apply =
   <T, U>(optFn: Option<(arg: T) => U>) =>
   (val: Option<T>): Option<U> => {
-    const curVal = val.get();
     const curFn = optFn.get();
-    if (!curVal || !curFn) return None;
+    if (val.isNone() || !curFn) return None;
 
-    return Some(curFn(curVal));
+    return val.map(curFn);
   };
 
 // convert (T[] => U) => E<T>[] => E<U>
