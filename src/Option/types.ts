@@ -33,7 +33,7 @@ export interface Option<T> {
 export interface OptionSome<T> extends Option<T> {
   type: 'some';
   get(): T;
-  map<U>(cb: (val: T) => U): OptionSome<U>;
+  map<U>(cb: (val: T) => U): Option<U>;
 }
 
 export interface OptionNone<T> extends Option<T> {

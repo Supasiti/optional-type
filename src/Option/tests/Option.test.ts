@@ -94,13 +94,13 @@ describe('Some', () => {
       expect(result.isNone()).toEqual(false);
     });
 
-    it('returns Option<null>', () => {
+    it('returns None', () => {
       const input = random();
       const result = Some(input).map((val: number) => null);
 
-      expect(result.type).toEqual('some');
-      expect(result.isSome()).toEqual(true);
-      expect(result.isNone()).toEqual(false);
+      expect(result.type).toEqual('none');
+      expect(result.isSome()).toEqual(false);
+      expect(result.isNone()).toEqual(true);
     });
 
     it('is equivalent to applying the function', () => {

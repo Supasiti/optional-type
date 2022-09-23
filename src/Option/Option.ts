@@ -18,7 +18,7 @@ const makeSome = <T>(val: T): OptionSome<T> => ({
   isNone: () => false,
   get: () => val,
   getOr: (_defaultVal: T) => val,
-  map: <U>(cb: (val: T) => U) => makeSome<U>(cb(val)),
+  map: <U>(cb: (val: T) => U) => Some(cb(val)),
   bind: <U>(cb: (val: T) => Option<U>) => cb(val),
 });
 
