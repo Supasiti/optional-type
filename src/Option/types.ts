@@ -44,11 +44,19 @@ export interface OptionNone<T> extends Option<T> {
 }
 
 export interface OptionFunctor {
-  // convert function to accept Optional input
+  // convert function to accept Option
 
   map<T, U>(cb: (arg: T) => U): (arg: Option<T>) => Option<U>;
 
-  // convert cross domain function to accept Optional input
+  // convert cross domain function to accept Option
 
   bind<T, U>(cb: (arg: T) => Option<U>): (arg: Option<T>) => Option<U>;
+
+  // function with multiple arguments to accept Option
+
+  lift<U>(cb: (...args: any[]) => U): (...args: Option<any>[]) => Option<U>;
+
+  // unwrap optional function
+
+  apply<T, U>(optFn: Option<(arg: T) => U>): (arg: Option<T>) => Option<U>;
 }
