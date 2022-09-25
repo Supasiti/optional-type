@@ -20,10 +20,9 @@ const bind =
 const apply =
   <T, U>(optFn: Option<(arg: T) => U>) =>
   (val: Option<T>): Option<U> => {
-    const curFn = optFn.get();
-    if (val.isNone() || !curFn) return None;
+    if (val.isNone() || optFn.isNone()) return None;
 
-    return val.map(curFn);
+    return optFn.bind((fn) => val.map(fn));
   };
 
 // convert (T[] => U) => E<T>[] => E<U>
