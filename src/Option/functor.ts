@@ -19,11 +19,8 @@ const bind =
 
 const apply =
   <T, U>(optFn: Option<(arg: T) => U>) =>
-  (val: Option<T>): Option<U> => {
-    if (val.isNone() || optFn.isNone()) return None;
-
-    return optFn.bind((fn) => val.map(fn));
-  };
+  (val: Option<T>): Option<U> =>
+    optFn.bind((fn) => val.map(fn));
 
 // convert (T[] => U) => E<T>[] => E<U>
 
@@ -32,12 +29,12 @@ const lift =
   (...vals: Option<any>[]): Option<U> => {
     const [val1, ...rest] = vals;
 
-    if (!rest.length) return option.map(cb)(val1);
+    if (!rest.length) return val1.map(cb);
 
     const intCb =
-      (...rest: any[]) =>
-      (val1: any) =>
-        cb(val1, ...rest);
+      (...r: any[]) =>
+      (v: any) =>
+        cb(v, ...r);
 
     const optionIntCb = lift(intCb)(...rest);
     return apply(optionIntCb)(val1);
