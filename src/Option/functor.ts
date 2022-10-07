@@ -1,4 +1,3 @@
-import { None, Some } from './Option';
 import { OptionFunctor, Option } from './types';
 
 // convert (T => U) => E<T> => E<U>
@@ -12,10 +11,10 @@ const map =
 
 const bind =
   <T, U>(cb: (arg: T) => Option<U>) =>
-  (val: Option<T>): Option<U> =>
+  (val: Option<T>): Option<U> => 
     val.bind(cb);
 
-// convert E<T => U> => E<T> => E<U>
+// convert E<T => U> => E<T> => E<U> 
 
 const apply =
   <T, U>(optFn: Option<(arg: T) => U>) =>
