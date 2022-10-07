@@ -1,4 +1,5 @@
 import { Fail, Success } from '../Result';
+import { ResultMatch } from '../types';
 
 describe('Fail', () => {
   it('returns fail object', () => {
@@ -66,6 +67,16 @@ describe('Fail', () => {
     expect(fail.get()).toBeUndefined();
     expect(fail.getOr('placeholder')).toEqual('placeholder');
     expect(fail.getFail()).toEqual('Error: message');
+  });
+
+  it('match returns', () => {
+    const matchPattern: ResultMatch<any, string, number> = {
+      success: (_val: any) => 42,
+      fail: (err: string) => err.length,
+    };
+    const result = Fail('message').match(matchPattern);
+
+    expect(result).toEqual(7);
   });
 });
 
@@ -167,5 +178,15 @@ describe('Success', () => {
     expect(result.get()).toEqual('test');
     expect(result.getOr('placeholder')).toEqual('test');
     expect(result.getFail()).toBeUndefined();
+  });
+
+  it('match returns', () => {
+    const matchPattern: ResultMatch<string, any, number> = {
+      success: (val: string) => val.length,
+      fail: (err: any) => 0,
+    };
+    const result = Success('message').match(matchPattern);
+
+    expect(result).toEqual(7);
   });
 });

@@ -50,6 +50,15 @@ export interface Result<T, E> {
   // apply cross domain function to fail
 
   catch<U>(cb: (err: E) => Result<U, E>): Result<T, E> | Result<U, E>;
+
+  // apply function according to scenario
+
+  match<U>(matchPattern: ResultMatch<T, E, U>): U;
+}
+
+export interface ResultMatch<T, E, U> {
+  success: (val: T) => U;
+  fail: (err: E) => U;
 }
 
 export interface ResultFail<T, E> extends Result<T, E> {
