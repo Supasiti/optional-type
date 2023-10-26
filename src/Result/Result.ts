@@ -3,7 +3,7 @@ import { Result, ResultFail, ResultMatch, ResultSucess } from './types';
 
 export const Fail = <E, T = any>(err: E): ResultFail<T, E> => ({
   type: 'fail',
-  isSuccess: () => false,
+    isSuccess: () => false,
   isFail: () => true,
   success: () => None as Option<T>,
   fail: () => Some(err),
